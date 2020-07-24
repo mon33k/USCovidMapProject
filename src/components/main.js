@@ -12,7 +12,6 @@ class Main extends React.Component {
                 <Route path="/home" component={LandingPage}></Route>
                 <Route path="/us-covid-map" component={MapComponent}></Route>
                 <Route path="/us-covid-news" component={NewsComponent}></Route>
-                <Route></Route>
             </div>
         )
     }
