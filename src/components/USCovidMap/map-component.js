@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import "./map-stylesheet.css"
 import 'leaflet/dist/leaflet.css';
+import {Button} from "react-bootstrap"
 
 import { Map, Marker, Popup, TileLayer } from 'react-leaflet'
 
@@ -9,18 +10,41 @@ class MapComponent extends Component {
     constructor() {
         super()
         this.state = { 
+            // Map Coordinates
             lat: 39.381266,
             lng: -97.922211,
-            zoom: 4
+            zoom: 4,
+
+            // Map settings 
+            recenterClicked: 'active'// disabled : active
         }
+        this.handleOnClickReCenter = this.handleOnClickReCenter.bind(this)
+    }
+
+
+    componentDidMount() {
+    
+
+    }
+
+    handleOnClickReCenter() { 
+        let clickToggle = this.state.recenterClicked;
+            clickToggle === 'active' ? clickToggle = 'active' : clickToggle = 'disabled'
+            this.setState({
+                recenterClicked: clickToggle
+            })
+            return this.state.recenterClicked
+            
     }
 
     render() {
-        const position = [this.state.lat, this.state.lng]
+        const {lat, lng, zoom, recenterClicked} = this.state
+        const position = [lat, lng]
         const newyork = [40.730610, -73.935242];
+        console.log("recenter Clicked", this.state.recenterClicked)
 
         const map = (
-            <Map center={position} zoom={this.state.zoom}>
+            <Map center={position} zoom={zoom}>
                 <TileLayer
                     url='https://{s}.tile.osm.org/{z}/{x}/{y}.png'
                     attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -33,7 +57,8 @@ class MapComponent extends Component {
             </Map>
         )
         return (
-            <div>Map Component
+            <div>
+                <Button variant="primary" size="lg" onClick={this.handleOnClickReCenter}>Re-center Map</Button>
                     {map}
             </div>
         )
