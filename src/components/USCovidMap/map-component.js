@@ -39,7 +39,10 @@ class MapComponent extends Component {
     getCovidData() {
         const {data} = this.state
         axios.get('https://api.covidtracking.com/v1/states/current.json').then(res => {
-            console.log('res.state', res.state)
+            console.log('res.state', res.data)
+            res.data.forEach(ele => {
+                console.log("each state", ele.state)
+            });
             //this.setState(
                 // data: [...data, {'id': res.fips, 'coors': res.}]
             //)
@@ -108,10 +111,4 @@ class MapComponent extends Component {
     }
 }
 
-// const mapStyle = {
-//     fillColor: "white",
-//     weight: 1,
-//     color: "black",
-//     fillOpacity: 1,
-//   };
 export default MapComponent;
