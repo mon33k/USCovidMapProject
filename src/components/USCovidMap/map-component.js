@@ -39,16 +39,16 @@ class MapComponent extends Component {
     getCovidData() {
         const {data} = this.state
         axios.get('https://api.covidtracking.com/v1/states/current.json').then(res => {
-            console.log('res.state', res.data)
+            // console.log('res.state', res.data)
             res.data.forEach(ele => {
-                console.log("each state", ele.state)
+                // console.log("each state", ele.state)
             });
             //this.setState(
                 // data: [...data, {'id': res.fips, 'coors': res.}]
             //)
         })
     }
-
+ 
     handleOnClickReCenter = () => { 
         // e.preventDefault()
         this.setState({
@@ -72,7 +72,20 @@ class MapComponent extends Component {
 
     showAllMarkers () {
         const newyork = [40.730610, -73.935242];
+        console.log("STUSPS10", geodata.features)
 
+        let positionInfo = function() {
+            for(let state in geodata.features) {
+                let dataObj = {}
+                console.log("each state", geodata.features[state].properties.STUSPS10)
+            }
+        }
+      
+
+        // const newarr = geodata.features.map(e => {
+        //     console.log("STUSPS10", e.properties.STUSPS10)
+        // })
+        // console.log("geodata marker to state", newarr)
         return (
             <Marker position={newyork}>
                     <Popup>
@@ -96,15 +109,16 @@ class MapComponent extends Component {
                     onzoomend={this.handleZoomEnd}
                 >
                     <GeoJSON
-                        data={geodata}
+                        data={geodata.features}
                         style={() => ({
                             color: '#4a83ec',
                             weight: 0.5,
                             fillColor: "#1a1d62",
                             fillOpacity: 1,
                         })}
+                        // onEachFeature={}
                     />
-                    {this.showAllMarkers()}
+                    {s}
             </Map>
             </div>
         )
